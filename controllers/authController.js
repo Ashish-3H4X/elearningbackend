@@ -34,9 +34,8 @@ export const signUp=async (req,res)=>{
         let token = await genToken(user._id)
         res.cookie("token",token,{
             httpOnly:true,
-            secure:false,
-            sameSite: "Strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            secure: true,        // 🔥 MUST for HTTPS (Vercel + Render)
+            sameSite: "none",    // 🔥 MUST for cross-domain
         })
         return res.status(201).json(user)
 
@@ -60,8 +59,8 @@ export const login=async(req,res)=>{
         let token =await genToken(user._id)
         res.cookie("token",token,{
             httpOnly:true,
-            secure:false,
-            sameSite: "Strict",
+            secure: true,        // 🔥 MUST for HTTPS (Vercel + Render)
+            sameSite: "none",    // 🔥 MUST for cross-domain
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
         return res.status(200).json(user)
@@ -97,8 +96,8 @@ export const googleSignup = async (req,res) => {
         let token =await genToken(user._id)
         res.cookie("token",token,{
             httpOnly:true,
-            secure:false,
-            sameSite: "Strict",
+            secure: true,        // 🔥 MUST for HTTPS (Vercel + Render)
+            sameSite: "none",    // 🔥 MUST for cross-domain
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
         return res.status(200).json(user)
